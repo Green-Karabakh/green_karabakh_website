@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Karabakh</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #0a6e4e;
+    --green-mid: #0f9b6e;
+    --green-light: #1dc98a;
+    --teal: #00c9b1;
+    --blue-dark: #0a3d6b;
+    --blue-mid: #1565a8;
+    --blue-light: #1e88d8;
+    --yellow: #f5c518;
+    --white: #f0faf6;
+    --bg: #07402e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(7,40,28,0.96);
+    backdrop-filter: blur(12px);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--green-light);
+  }
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 1.4rem;
+    color: var(--green-light);
+    text-transform: uppercase; letter-spacing: 2px;
+    z-index: 101;
+  }
+  nav ul { list-style: none; display: flex; gap: 28px; align-items: center; }
+  .nav-insta {
+    display: flex; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-insta:hover { color: var(--green-light); }
+  .nav-insta svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Lang switcher */
+  .lang-switcher {
+    display: flex; gap: 4px; align-items: center;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(29,201,138,0.25);
+    border-radius: 50px; padding: 3px;
+    z-index: 101; flex-shrink: 0;
+  }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.75rem;
+    padding: 5px 10px; border-radius: 50px;
+    transition: all 0.2s; letter-spacing: 0.5px;
+  }
+  .lang-btn.active {
+    background: var(--green-light); color: #042818;
+  }
+  .lang-btn:hover:not(.active) { color: var(--green-light); }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; z-index: 101; background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 26px; height: 2.5px;
+    background: var(--green-light); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+  @media(max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .hamburger { display: flex; }
+    nav ul {
+      position: fixed; top: 0; right: -100%; width: 75%; max-width: 300px; height: 100vh;
+      background: rgba(4,30,20,0.98);
+      backdrop-filter: blur(16px);
+      flex-direction: column; gap: 0;
+      padding: 80px 0 40px;
+      border-left: 2px solid rgba(29,201,138,0.25);
+      transition: right 0.35s ease;
+      align-items: flex-start;
+    }
+    nav ul.open { right: 0; }
+    nav ul li { width: 100%; }
+    nav ul a, .nav-insta {
+      display: block; padding: 16px 32px;
+      font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-insta { display: flex; padding: 16px 32px; }
+  }
+  nav ul a {
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--green-light); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 20px 80px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 40%, rgba(29,201,138,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 80%, rgba(0,201,177,0.12) 0%, transparent 60%),
+                linear-gradient(160deg, #07402e 0%, #042818 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(29,201,138,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  /* corner decorations like posters */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 160px; height: 160px;
+    background: var(--teal);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    opacity: 0.7;
+  }
+  .corner-bl {
+    position: absolute; bottom: 0; left: 0;
+    width: 140px; height: 140px;
+    background: var(--teal);
+    clip-path: polygon(0 100%, 0 0, 100% 100%);
+    opacity: 0.6;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(29,201,138,0.15);
+    border: 1.5px solid var(--green-light);
+    color: var(--green-light);
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 6px 20px; border-radius: 50px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: clamp(3.5rem, 9vw, 8rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+  .hero h1 .green { color: var(--green-light); }
+  .hero h1 .white { color: #fff; }
+
+  .hero-sub {
+    margin-top: 20px; max-width: 680px;
+    font-size: 1.1rem; color: rgba(255,255,255,0.75); line-height: 1.7;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 50px;
+    flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .stat {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(29,201,138,0.3);
+    border-radius: 16px; padding: 22px 32px; text-align: center;
+    backdrop-filter: blur(8px);
+  }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.4rem; font-weight: 900; color: var(--green-light);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .hero-scroll {
+    margin-top: 60px; color: rgba(255,255,255,0.4);
+    font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after { content: ' ↓'; }
+  .hero-btns {
+    display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+  .btn-dashboard {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, var(--green-mid), var(--teal));
+    color: #fff; text-decoration: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 14px 32px; border-radius: 50px;
+    box-shadow: 0 0 24px rgba(29,201,138,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-dashboard:hover { transform: translateY(-3px); box-shadow: 0 0 36px rgba(29,201,138,0.6); }
+  .btn-insta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: #fff; text-decoration: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
+    padding: 14px 28px; border-radius: 50px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .btn-insta:hover { transform: translateY(-3px); border-color: var(--green-light); color: var(--green-light); }
+  .btn-insta svg, .btn-dashboard svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+
+  /* ===== SECTIONS GENERAL ===== */
+  section { padding: 90px 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-align: center; margin-bottom: 14px;
+    color: #fff;
+  }
+  .section-title span { color: var(--green-light); }
+  .section-sub {
+    text-align: center; color: rgba(255,255,255,0.6);
+    max-width: 600px; margin: 0 auto 60px; line-height: 1.7;
+  }
+  .divider {
+    width: 60px; height: 4px;
+    background: linear-gradient(90deg, var(--green-light), var(--teal));
+    border-radius: 2px; margin: 14px auto 20px;
+  }
+
+  /* ===== MƏQSƏD ===== */
+  #meqsed {
+    background: linear-gradient(160deg, #042818 0%, #063520 100%);
+  }
+  .goals-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .goal-card {
+    background: linear-gradient(135deg, rgba(15,155,110,0.18), rgba(21,101,168,0.12));
+    border: 1.5px solid rgba(29,201,138,0.25);
+    border-radius: 20px; padding: 32px 28px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .goal-card:hover { transform: translateY(-6px); border-color: var(--green-light); }
+  .goal-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .goal-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 10px; color: var(--green-light); }
+  .goal-card p { color: rgba(255,255,255,0.75); line-height: 1.6; font-size: 0.95rem; }
+
+  /* ===== ENERJİ BALANSI ===== */
+  #enerji {
+    background: #042818;
+  }
+  .energy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  @media(max-width:768px){ .energy-layout { grid-template-columns: 1fr; } }
+
+  /* Donut chart */
+  .donut-wrap { position: relative; width: 280px; height: 280px; margin: 0 auto; }
+  .donut-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .donut-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    text-align: center;
+  }
+  .donut-center span { display: block; font-family: 'Montserrat', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.5); }
+  .donut-center strong { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--green-light); }
+
+  .energy-legend { display: flex; flex-direction: column; gap: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 16px; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .legend-item strong { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem; min-width: 46px; }
+  .legend-label { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+  /* Bar indicator */
+  .bar-bg { background: rgba(255,255,255,0.1); border-radius: 4px; height: 6px; flex: 1; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+  /* ===== TEXNOLOGİYALAR ===== */
+  #texnologiyalar {
+    background: linear-gradient(160deg, #063520 0%, #042818 100%);
+  }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .tech-card {
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(29,201,138,0.2);
+    border-radius: 20px; padding: 30px 24px;
+    text-align: center;
+    transition: transform 0.3s, background 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .tech-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--green-light), var(--teal));
+    transform: scaleX(0); transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .tech-card:hover::before { transform: scaleX(1); }
+  .tech-card:hover { transform: translateY(-5px); background: rgba(29,201,138,0.07); }
+  .tech-emoji { font-size: 3rem; margin-bottom: 16px; }
+  .tech-card h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--green-light); margin-bottom: 10px; }
+  .tech-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ===== MÜQAYİSƏ ===== */
+  #muqayise {
+    background: #042818;
+  }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
+  @media(max-width:680px){ .compare-grid { grid-template-columns: 1fr; } }
+
+  .compare-card {
+    border-radius: 20px; padding: 32px 28px;
+  }
+  .compare-card.normal {
+    background: rgba(150,60,60,0.12);
+    border: 1.5px solid rgba(200,80,80,0.3);
+  }
+  .compare-card.green {
+    background: rgba(15,155,110,0.12);
+    border: 1.5px solid rgba(29,201,138,0.35);
+  }
+  .compare-card h3 {
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem;
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .compare-card.normal h3 { color: #ff6b6b; }
+  .compare-card.green h3 { color: var(--green-light); }
+  .compare-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .key { font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+  .compare-row .val { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; }
+
+  /* Chart bars */
+  .chart-section { margin-top: 50px; }
+  .chart-title { font-family: 'Montserrat', sans-serif; font-weight: 700; text-align: center; margin-bottom: 30px; color: rgba(255,255,255,0.8); }
+  .chart-bars { display: flex; gap: 40px; justify-content: center; align-items: flex-end; height: 220px; }
+  .chart-group { display: flex; gap: 10px; align-items: flex-end; flex-direction: column; align-items: center; }
+  .chart-group-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-align: center; margin-top: 10px; max-width: 100px; }
+  .bar-pair { display: flex; gap: 8px; align-items: flex-end; height: 200px; }
+  .chart-bar {
+    width: 44px; border-radius: 6px 6px 0 0;
+    position: relative;
+    transition: opacity 0.3s;
+  }
+  .chart-bar:hover { opacity: 0.85; }
+  .chart-bar .bar-tip {
+    position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+    font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700;
+    white-space: nowrap;
+  }
+  .bar-normal { background: rgba(170,100,100,0.7); border: 1.5px solid rgba(255,100,100,0.4); }
+  .bar-green { background: linear-gradient(180deg, var(--green-light), var(--green-dark)); border: 1.5px solid var(--green-light); }
+
+  .legend-small { display: flex; gap: 24px; justify-content: center; margin-top: 14px; }
+  .ls-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+  .ls-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ===== AI ALGORİTM ===== */
+  #ai {
+    background: linear-gradient(135deg, #042818, #06355c 120%);
+  }
+  .ai-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+  @media(max-width:768px){ .ai-layout { grid-template-columns: 1fr; } }
+
+  .ai-steps { display: flex; flex-direction: column; gap: 20px; }
+  .ai-step {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(29,201,138,0.18);
+    border-radius: 16px; padding: 20px;
+  }
+  .step-num {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--green-mid), var(--blue-mid));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem;
+  }
+  .ai-step h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 6px; color: var(--green-light); }
+  .ai-step p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+  .hypothesis-box {
+    background: linear-gradient(135deg, rgba(21,101,168,0.2), rgba(15,155,110,0.15));
+    border: 2px solid rgba(29,201,138,0.35);
+    border-radius: 20px; padding: 36px 30px;
+  }
+  .hypothesis-box h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--teal); margin-bottom: 16px; font-size: 1.2rem; }
+  .hypothesis-box p { color: rgba(255,255,255,0.78); line-height: 1.7; margin-bottom: 20px; }
+  .hypo-tag {
+    display: inline-block; background: rgba(29,201,138,0.15);
+    border: 1px solid var(--green-light); color: var(--green-light);
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 14px; border-radius: 50px; margin: 4px;
+  }
+
+  /* ===== CONCLUSION ===== */
+  #netice {
+    background: #042818;
+    text-align: center;
+  }
+  .conclusion-box {
+    max-width: 760px; margin: 0 auto;
+    background: linear-gradient(135deg, rgba(29,201,138,0.12), rgba(0,201,177,0.08));
+    border: 2px solid rgba(29,201,138,0.35);
+    border-radius: 24px; padding: 50px 40px;
+  }
+  .conclusion-box p {
+    font-size: 1.1rem; line-height: 1.8;
+    color: rgba(255,255,255,0.82);
+  }
+  .conclusion-box p strong { color: var(--green-light); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #021810;
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 2px solid rgba(29,201,138,0.2);
+  }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+  footer strong { color: var(--green-light); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Green <span style="color:var(--green-light)">Karabakh</span></div>
+  <div style="display:flex;align-items:center;gap:12px;z-index:101;">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('az')">AZ</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menyu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <ul id="navMenu">
+    <li><a href="#meqsed" data-az="Məqsəd" data-en="Purpose" data-ru="Цель">Məqsəd</a></li>
+    <li><a href="#enerji" data-az="Enerji" data-en="Energy" data-ru="Энергия">Enerji</a></li>
+    <li><a href="#texnologiyalar" data-az="Texnologiyalar" data-en="Technologies" data-ru="Технологии">Texnologiyalar</a></li>
+    <li><a href="#muqayise" data-az="Müqayisə" data-en="Comparison" data-ru="Сравнение">Müqayisə</a></li>
+    <li><a href="#ai" data-az="AI" data-en="AI" data-ru="ИИ">AI</a></li>
+    <li><a href="#netice" data-az="Nəticə" data-en="Conclusion" data-ru="Итог">Nəticə</a></li>
+    <li>
+      <a class="nav-insta" href="https://www.instagram.com/green.karabakh?igsh=MXEwbzlmcmY5Y3IxaA%3D%3D&utm_source=qr" target="_blank">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="corner-bl"></div>
+  <div class="hero-badge" data-az="Layihə · 2026" data-en="Project · 2026" data-ru="Проект · 2026">Layihə · 2026</div>
+  <h1><span class="green">Green</span><br><span class="white">Karabakh</span></h1>
+  <p class="hero-sub" data-az="Qarabağ regionu üçün yaşıl və davamlı şəhər modeli: çoxmənbəli enerji istehsalı, süni intellekt idarəetməsi və sıfır karbon emissiyası hədəfi." data-en="A green and sustainable city model for the Karabakh region: multi-source energy production, AI management, and zero carbon emissions target." data-ru="Зелёная и устойчивая модель города для региона Карабах: многоисточниковое производство энергии, управление ИИ и цель нулевых выбросов углерода.">
+    Qarabağ regionu üçün yaşıl və davamlı şəhər modeli: çoxmənbəli enerji istehsalı, 
+    süni intellekt idarəetməsi və sıfır karbon emissiyası hədəfi.
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">99%</div>
+      <div class="stat-label" data-az="CO₂ Azalması" data-en="CO₂ Reduction" data-ru="Снижение CO₂">CO₂ Azalması</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">85%</div>
+      <div class="stat-label" data-az="Enerji Effektivliyi" data-en="Energy Efficiency" data-ru="Энергоэффективность">Enerji Effektivliyi</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">98.2%</div>
+      <div class="stat-label" data-az="Sistem Dayanıqlığı" data-en="System Uptime" data-ru="Надёжность системы">Sistem Dayanıqlığı</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">7000+</div>
+      <div class="stat-label" data-az="MVt Potensialı" data-en="MWt Potential" data-ru="МВт Потенциал">MVt Potensialı</div>
+    </div>
+  </div>
+  <div class="hero-btns">
+    <a class="btn-dashboard" href="https://green-karabakh.github.io/green_karabakh_dashboard/" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      <span data-az="Dashboard-a Bax" data-en="View Dashboard" data-ru="Открыть Dashboard">Dashboard-a Bax</span>
+    </a>
+    <a class="btn-insta" href="https://www.instagram.com/green.karabakh?igsh=MXEwbzlmcmY5Y3IxaA%3D%3D&utm_source=qr" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+  </div>
+  <div class="hero-scroll" data-az="Aşağı davam et" data-en="Scroll down" data-ru="Прокрутите вниз">Aşağı davam et</div>
+</section>
+
+<!-- MƏQSƏD -->
+<section id="meqsed">
+  <div class="container">
+    <div class="section-title reveal" data-az="Layihənin Məqsədi" data-en="Project <span>Purpose</span>" data-ru="Цель <span>Проекта</span>">Layihənin <span>Məqsədi</span></div>
+    <div class="divider reveal"></div>
+    <p class="section-sub reveal" data-az="Green Karabakh layihəsi Qarabağın bərpasına sadəcə binaların tikilməsi kimi baxmır — biz gələcəyin yaşayış modelini təklif edirik." data-en="The Green Karabakh project doesn't view the restoration of Karabakh merely as building construction — we offer a living model of the future." data-ru="Проект Green Karabakh рассматривает восстановление Карабаха не просто как строительство зданий — мы предлагаем модель жизни будущего.">Green Karabakh layihəsi Qarabağın bərpasına sadəcə binaların tikilməsi kimi baxmır — biz gələcəyin yaşayış modelini təklif edirik.</p>
+
+    <div class="goals-grid">
+      <div class="goal-card reveal">
+        <div class="goal-icon">⚡</div>
+        <h3 data-az="Çoxmənbəli Enerji" data-en="Multi-Source Energy" data-ru="Многоисточниковая энергия">Çoxmənbəli Enerji</h3>
+        <p data-az="Qarabağ regionu üçün yaşıl çərçivədə günəş, külək, bioqaz və kinetik enerji istehsal sistemini qurmaq." data-en="To build a solar, wind, biogas and kinetic energy production system in a green framework for the Karabakh region." data-ru="Создать систему производства солнечной, ветровой, биогазовой и кинетической энергии в зелёной среде для региона Карабах.">Qarabağ regionu üçün yaşıl çərçivədə günəş, külək, bioqaz və kinetik enerji istehsal sistemini qurmaq.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-icon">🤖</div>
+        <h3 data-az="AI İdarəetməsi" data-en="AI Management" data-ru="Управление ИИ">AI İdarəetməsi</h3>
+        <p data-az="Enerji idarəetməsini süni intellekt vasitəsilə optimallaşdıraraq fasiləsiz və səmərəli paylanmanı təmin etmək." data-en="To optimise energy management through artificial intelligence to ensure uninterrupted and efficient distribution." data-ru="Оптимизировать управление энергией с помощью искусственного интеллекта для обеспечения бесперебойного и эффективного распределения.">Enerji idarəetməsini süni intellekt vasitəsilə optimallaşdıraraq fasiləsiz və səmərəli paylanmanı təmin etmək.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-icon">🌐</div>
+        <h3 data-az="Smart Grid" data-en="Smart Grid" data-ru="Умная сеть">Smart Grid</h3>
+        <p data-az="Gələcək innovasiyalar üçün dayanıqlı rəqəmsal şəbəkə (Smart Grid) infrastrukturu yaratmaq." data-en="To create a resilient digital Smart Grid infrastructure for future innovations." data-ru="Создать устойчивую цифровую инфраструктуру Smart Grid для будущих инноваций.">Gələcək innovasiyalar üçün dayanıqlı rəqəmsal şəbəkə (Smart Grid) infrastrukturu yaratmaq.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-icon">🌿</div>
+        <h3 data-az="Net Zero Hədəfi" data-en="Net Zero Goal" data-ru="Цель Net Zero">Net Zero Hədəfi</h3>
+        <p data-az="Regionun 7000+ MVt potensialı ilə Net Zero şəhər modelini həyata keçirmək." data-en="To implement a Net Zero city model with the region's 7000+ MWt potential." data-ru="Реализовать модель города Net Zero с потенциалом региона 7000+ МВт.">Regionun 7000+ MVt potensialı ilə "Net Zero" şəhər modelini həyata keçirmək.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-icon">🔬</div>
+        <h3 data-az="Rəqəmsal Laboratoriya" data-en="Digital Laboratory" data-ru="Цифровая лаборатория">Rəqəmsal Laboratoriya</h3>
+        <p data-az="Enerji şəbəkəsini həm istehlak, həm də gələcək AI texnologiyalarının inkişafı üçün infrastruktur kimi istifadə etmək." data-en="To use the energy grid as infrastructure both for consumption and for the development of future AI technologies." data-ru="Использовать энергосеть как инфраструктуру как для потребления, так и для развития будущих технологий ИИ.">Enerji şəbəkəsini həm istehlak, həm də gələcək AI texnologiyalarının inkişafı üçün infrastruktur kimi istifadə etmək.</p>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-icon">💡</div>
+        <h3 data-az="İdeya" data-en="Vision" data-ru="Идея">İdeya</h3>
+        <p data-az="Qarabağdan başlayan bu enerji inqilabı Azərbaycanın dünya texnologiya xəritəsindəki yerini möhkəmləndirəcək." data-en="This energy revolution starting from Karabakh will strengthen Azerbaijan's position on the world technology map." data-ru="Эта энергетическая революция, начавшаяся с Карабаха, укрепит позиции Азербайджана на мировой технологической карте.">Qarabağdan başlayan bu enerji inqilabı Azərbaycanın dünya texnologiya xəritəsindəki yerini möhkəmləndirəcək.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENERJİ BALANSI -->
+<section id="enerji">
+  <div class="container">
+    <div class="section-title reveal" data-az="Hibrid Enerji Balansı" data-en="Hybrid Energy <span>Balance</span>" data-ru="Гибридный энергетический <span>баланс</span>">Hibrid Enerji <span>Balansı</span></div>
+    <div class="divider reveal"></div>
+    <p class="section-sub reveal" data-az="Sistem Qarabağın coğrafi potensialına uyğun olaraq beş mənbəyi sinxron idarə edir." data-en="The system synchronously manages five sources according to Karabakh's geographical potential." data-ru="Система синхронно управляет пятью источниками в соответствии с географическим потенциалом Карабаха.">Sistem Qarabağın coğrafi potensialına uyğun olaraq beş mənbəyi sinxron idarə edir.</p>
+
+    <div class="energy-layout">
+      <div class="reveal">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 160 160">
+            <!-- Solar 40% -->
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#f5c518" stroke-width="24"
+              stroke-dasharray="150.8 226.2" stroke-dashoffset="0"/>
+            <!-- Wind 30% -->
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#1dc98a" stroke-width="24"
+              stroke-dasharray="113.1 263.9" stroke-dashoffset="-150.8"/>
+            <!-- Biogas 15% -->
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#00c9b1" stroke-width="24"
+              stroke-dasharray="56.5 320.5" stroke-dashoffset="-263.9"/>
+            <!-- Storage 11% -->
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#1e88d8" stroke-width="24"
+              stroke-dasharray="41.5 335.5" stroke-dashoffset="-320.4"/>
+            <!-- Piezo 4% -->
+            <circle cx="80" cy="80" r="60" fill="none" stroke="#9c7ee8" stroke-width="24"
+              stroke-dasharray="15.1 361.9" stroke-dashoffset="-361.9"/>
+          </svg>
+          <div class="donut-center">
+            <span>Enerji</span>
+            <strong>Mənbələri</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="energy-legend reveal">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f5c518"></div>
+          <strong style="color:#f5c518">40%</strong>
+          <div>
+            <div class="legend-label" data-az="☀️ Günəş Enerjisi" data-en="☀️ Solar Energy" data-ru="☀️ Солнечная энергия">☀️ Günəş Enerjisi</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:40%;background:#f5c518"></div></div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1dc98a"></div>
+          <strong style="color:#1dc98a">30%</strong>
+          <div>
+            <div class="legend-label" data-az="💨 Külək Enerjisi" data-en="💨 Wind Energy" data-ru="💨 Ветровая энергия">💨 Külək Enerjisi</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:30%;background:#1dc98a"></div></div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#00c9b1"></div>
+          <strong style="color:#00c9b1">15%</strong>
+          <div>
+            <div class="legend-label" data-az="🌱 Bioqaz" data-en="🌱 Biogas" data-ru="🌱 Биогаз">🌱 Bioqaz</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:15%;background:#00c9b1"></div></div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1e88d8"></div>
+          <strong style="color:#1e88d8">11%</strong>
+          <div>
+            <div class="legend-label" data-az="🔋 Smart Storage (Iron-Air)" data-en="🔋 Smart Storage (Iron-Air)" data-ru="🔋 Smart Storage (Iron-Air)">🔋 Smart Storage (Iron-Air)</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:11%;background:#1e88d8"></div></div>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#9c7ee8"></div>
+          <strong style="color:#9c7ee8">4%</strong>
+          <div>
+            <div class="legend-label" data-az="⚡ Pyezoelektrik" data-en="⚡ Piezoelectric" data-ru="⚡ Пьезоэлектрик">⚡ Pyezoelektrik</div>
+            <div class="bar-bg"><div class="bar-fill" style="width:4%;background:#9c7ee8"></div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;padding:18px;background:rgba(29,201,138,0.1);border:1px solid rgba(29,201,138,0.25);border-radius:14px;">
+          <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);line-height:1.6;" data-az="AI Kompensasiya Alqoritmi: Günəş və ya külək enerjisindəki anlıq enişlər müşahidə olunduqda, AI millisaniyələr ərzində Smart Storage bloklarını işə salaraq şəhər şəbəkəsindəki gərginliyi sabit saxlayır." data-en="AI Compensation Algorithm: When sudden drops in solar or wind energy are detected, AI activates Smart Storage blocks within milliseconds to stabilise voltage in the city grid." data-ru="Алгоритм компенсации ИИ: При обнаружении внезапных падений солнечной или ветровой энергии ИИ активирует блоки Smart Storage за миллисекунды для стабилизации напряжения в городской сети.">
+            <strong style="color:var(--green-light)">AI Kompensasiya Alqoritmi:</strong> Günəş və ya külək enerjisindəki anlıq enişlər müşahidə olunduqda, AI millisaniyələr ərzində Smart Storage bloklarını işə salaraq şəhər şəbəkəsindəki gərginliyi sabit saxlayır.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEXNOLOGİYALAR -->
+<section id="texnologiyalar">
+  <div class="container">
+    <div class="section-title reveal" data-az="İstifadə Olunan Texnologiyalar" data-en="Technologies <span>Used</span>" data-ru="Используемые <span>Технологии</span>">İstifadə Olunan <span>Texnologiyalar</span></div>
+    <div class="divider reveal"></div>
+    <p class="section-sub reveal" data-az="Green Karabakh dörd əsas texnologiyanı birləşdirərək adi şəhərlərdən fərqli, müstəqil Ağıllı Orqanizm kimi fəaliyyət göstərir." data-en="Green Karabakh combines four core technologies to operate as an independent Smart Organism, unlike ordinary cities." data-ru="Green Karabakh объединяет четыре основные технологии, функционируя как независимый Умный Организм, в отличие от обычных городов.">Green Karabakh dörd əsas texnologiyanı birləşdirərək adi şəhərlərdən fərqli, müstəqil "Ağıllı Orqanizm" kimi fəaliyyət göstərir.</p>
+
+    <div class="tech-grid">
+      <div class="tech-card reveal">
+        <div class="tech-emoji">☀️</div>
+        <h3 data-az="Günəş Panelləri" data-en="Solar Panels" data-ru="Солнечные панели">Günəş Panelləri</h3>
+        <p data-az="Qarabağın yüksək günəş radiasiyası potensialından istifadə edərək 40% enerji payı ilə ən böyük mənbəyi təşkil edir." data-en="Utilising Karabakh's high solar radiation potential, it forms the largest source with a 40% energy share." data-ru="Используя высокий потенциал солнечной радиации Карабаха, он является крупнейшим источником с долей энергии 40%.">Qarabağın yüksək günəş radiasiyası potensialından istifadə edərək 40% enerji payı ilə ən böyük mənbəyi təşkil edir.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-emoji">💨</div>
+        <h3 data-az="Külək Turbinləri" data-en="Wind Turbines" data-ru="Ветровые турбины">Külək Turbinləri</h3>
+        <p data-az="7000+ MVt potensialı ilə regionun ikinci ən güclü enerji mənbəyi. 30% enerji payı." data-en="With a potential of 7000+ MWt, it is the region's second most powerful energy source, with a 30% energy share." data-ru="С потенциалом 7000+ МВт — второй по мощности источник энергии региона с долей 30%.">7000+ MVt potensialı ilə regionun ikinci ən güclü enerji mənbəyi. 30% enerji payı.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-emoji">🌱</div>
+        <h3 data-az="Bioqaz" data-en="Biogas" data-ru="Биогаз">Bioqaz</h3>
+        <p data-az="Üzvi tullantıların oksigensiz mühitdə çürüməsindən alınan qazın elektrik enerjisinə çevrilməsi — bu həm təmizlik, həm daimi enerjidir." data-en="Converting gas from anaerobic decomposition of organic waste into electricity — this is both clean and constant energy." data-ru="Преобразование газа от анаэробного разложения органических отходов в электроэнергию — это одновременно чистая и постоянная энергия.">Üzvi tullantıların oksigensiz mühitdə çürüməsindən alınan qazın elektrik enerjisinə çevrilməsi — bu həm təmizlik, həm daimi enerjidir.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-emoji">🔋</div>
+        <h3 data-az="Iron-Air Texnologiyası" data-en="Iron-Air Technology" data-ru="Технология Iron-Air">Iron-Air Texnologiyası</h3>
+        <p data-az="Dəmir-hava batareyaları enerjini 100 saatadək itkisiz saxlayır. Lityum sistemlərdən 10 dəfə ucuz və ekoloji təmizdir." data-en="Iron-air batteries store energy for up to 100 hours without loss. 10 times cheaper than lithium systems and environmentally clean." data-ru="Железо-воздушные батареи хранят энергию до 100 часов без потерь. В 10 раз дешевле литиевых систем и экологически чисты.">Dəmir-hava batareyaları enerjini 100 saatadək itkisiz saxlayır. Lityum sistemlərdən 10 dəfə ucuz və ekoloji təmizdir.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-emoji">⚡</div>
+        <h3 data-az="Pyezoelektrik" data-en="Piezoelectric" data-ru="Пьезоэлектрик">Pyezoelektrik</h3>
+        <p data-az="Mexaniki təzyiqi (addım və ya təkər təzyiqi) birbaşa elektrik enerjisinə çevirən kristal əsaslı texnologiyadır." data-en="A crystal-based technology that converts mechanical pressure (footstep or wheel pressure) directly into electrical energy." data-ru="Кристаллическая технология, преобразующая механическое давление (шаг или давление колеса) непосредственно в электрическую энергию.">Mexaniki təzyiqi (addım və ya təkər təzyiqi) birbaşa elektrik enerjisinə çevirən kristal əsaslı texnologiyadır.</p>
+      </div>
+      <div class="tech-card reveal">
+        <div class="tech-emoji">🤖</div>
+        <h3 data-az="AI Dashboard" data-en="AI Dashboard" data-ru="ИИ Dashboard">AI Dashboard</h3>
+        <p data-az="Süni İntellekt idarəetmə platforması — enerji axınlarını simulyasiya edən dinamik qrafiklər ilə real vaxt idarəetməsi." data-en="AI management platform — real-time management with dynamic graphs simulating energy flows." data-ru="Платформа управления ИИ — управление в реальном времени с динамическими графиками, имитирующими потоки энергии.">Süni İntellekt idarəetmə platforması — enerji axınlarını simulyasiya edən dinamik qrafiklər ilə real vaxt idarəetməsi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÜQAYİSƏLİ ANALİZ -->
+<section id="muqayise">
+  <div class="container">
+    <div class="section-title reveal" data-az='Niyə "Green Karabakh"?' data-en='Why <span>"Green Karabakh"?</span>' data-ru='Почему <span>"Green Karabakh"?</span>'>Niyə <span>"Green Karabakh"</span>?</div>
+    <div class="divider reveal"></div>
+    <p class="section-sub reveal" data-az="Müqayisəli Analiz: Adi şəhərlər ilə Green Karabakh şəhəri arasındakı fərqlər" data-en="Comparative Analysis: Differences between ordinary cities and Green Karabakh city" data-ru="Сравнительный анализ: Различия между обычными городами и городом Green Karabakh">Müqayisəli Analiz: Adi şəhərlər ilə Green Karabakh şəhəri arasındakı fərqlər</p>
+
+    <div class="compare-grid">
+      <div class="compare-card normal reveal">
+        <h3 data-az="⚠️ Adi Şəhər" data-en="⚠️ Ordinary City" data-ru="⚠️ Обычный город">⚠️ Adi Şəhər</h3>
+        <div class="compare-row">
+          <span class="key" data-az="CO₂ Emissiyası" data-en="CO₂ Emissions" data-ru="Выбросы CO₂">CO₂ Emissiyası</span>
+          <span class="val" style="color:#ff6b6b" data-az="Yüksək" data-en="High" data-ru="Высокие">Yüksək</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Enerji Effektivliyi" data-en="Energy Efficiency" data-ru="Энергоэффективность">Enerji Effektivliyi</span>
+          <span class="val" style="color:#ff6b6b">40–50%</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Sistem Dayanıqlığı" data-en="System Reliability" data-ru="Надёжность системы">Sistem Dayanıqlığı</span>
+          <span class="val" style="color:#ff6b6b" data-az="Həssas" data-en="Vulnerable" data-ru="Уязвимая">Həssas</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Enerji Mənbəyi" data-en="Energy Source" data-ru="Источник энергии">Enerji Mənbəyi</span>
+          <span class="val" style="color:#ff6b6b" data-az="Fossil yanacaq" data-en="Fossil fuels" data-ru="Ископаемое топливо">Fossil yanacaq</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Şəbəkə Asılılığı" data-en="Grid Dependency" data-ru="Зависимость от сети">Şəbəkə Asılılığı</span>
+          <span class="val" style="color:#ff6b6b" data-az="Xarici şəbəkə" data-en="External grid" data-ru="Внешняя сеть">Xarici şəbəkə</span>
+        </div>
+      </div>
+
+      <div class="compare-card green reveal">
+        <h3 data-az="✅ Green Karabakh" data-en="✅ Green Karabakh" data-ru="✅ Green Karabakh">✅ Green Karabakh</h3>
+        <div class="compare-row">
+          <span class="key" data-az="CO₂ Azalması" data-en="CO₂ Reduction" data-ru="Снижение CO₂">CO₂ Azalması</span>
+          <span class="val" style="color:#1dc98a" data-az="99% Azalma" data-en="99% Reduction" data-ru="Снижение на 99%">99% Azalma</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Enerji Effektivliyi" data-en="Energy Efficiency" data-ru="Энергоэффективность">Enerji Effektivliyi</span>
+          <span class="val" style="color:#1dc98a">85%</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Sistem Dayanıqlığı" data-en="System Reliability" data-ru="Надёжность системы">Sistem Dayanıqlığı</span>
+          <span class="val" style="color:#1dc98a">98.2% Uptime</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Enerji Mənbəyi" data-en="Energy Source" data-ru="Источник энергии">Enerji Mənbəyi</span>
+          <span class="val" style="color:#1dc98a" data-az="5 yaşıl mənbə" data-en="5 green sources" data-ru="5 зелёных источников">5 yaşıl mənbə</span>
+        </div>
+        <div class="compare-row">
+          <span class="key" data-az="Şəbəkə Asılılığı" data-en="Grid Dependency" data-ru="Зависимость от сети">Şəbəkə Asılılığı</span>
+          <span class="val" style="color:#1dc98a" data-az="Tam müstəqil" data-en="Fully independent" data-ru="Полностью независимый">Tam müstəqil</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-section reveal">
+      <p class="chart-title" data-az="Göstəricilər Müqayisəsi (normallaşdırılmış)" data-en="Indicators Comparison (normalised)" data-ru="Сравнение показателей (нормализованное)">Göstəricilər Müqayisəsi (normallaşdırılmış)</p>
+      <div class="chart-bars">
+        <!-- CO2 -->
+        <div class="chart-group">
+          <div class="bar-pair">
+            <div class="chart-bar bar-normal" style="height:26px;">
+              <span class="bar-tip" style="color:#ff6b6b">13%</span>
+            </div>
+            <div class="chart-bar bar-green" style="height:198px;">
+              <span class="bar-tip" style="color:#1dc98a">99%</span>
+            </div>
+          </div>
+          <div class="chart-group-label" data-az="CO₂ Azaldılması" data-en="CO₂ Reduction" data-ru="Снижение CO₂">CO₂ Azaldılması</div>
+        </div>
+        <!-- Enerji -->
+        <div class="chart-group">
+          <div class="bar-pair">
+            <div class="chart-bar bar-normal" style="height:80px;">
+              <span class="bar-tip" style="color:#ff6b6b">40%</span>
+            </div>
+            <div class="chart-bar bar-green" style="height:170px;">
+              <span class="bar-tip" style="color:#1dc98a">85%</span>
+            </div>
+          </div>
+          <div class="chart-group-label" data-az="Enerji Effektivliyi" data-en="Energy Efficiency" data-ru="Энергоэффективность">Enerji Effektivliyi</div>
+        </div>
+        <!-- Dayaniqliq -->
+        <div class="chart-group">
+          <div class="bar-pair">
+            <div class="chart-bar bar-normal" style="height:90px;">
+              <span class="bar-tip" style="color:#ff6b6b">~50%</span>
+            </div>
+            <div class="chart-bar bar-green" style="height:196px;">
+              <span class="bar-tip" style="color:#1dc98a">98.2%</span>
+            </div>
+          </div>
+          <div class="chart-group-label" data-az="Sistem Dayanıqlığı" data-en="System Reliability" data-ru="Надёжность системы">Sistem Dayanıqlığı</div>
+        </div>
+      </div>
+      <div class="legend-small">
+        <div class="ls-item"><div class="ls-dot" style="background:rgba(170,100,100,0.7)"></div> <span data-az="Adi Şəhər" data-en="Ordinary City" data-ru="Обычный город">Adi Şəhər</span></div>
+        <div class="ls-item"><div class="ls-dot" style="background:var(--green-light)"></div> Green Karabakh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI & METODOLOGİYA -->
+<section id="ai">
+  <div class="container">
+    <div class="section-title reveal" data-az="Metodologiya &amp; AI Alqoritm" data-en="Methodology &amp; <span>AI Algorithm</span>" data-ru="Методология &amp; <span>ИИ Алгоритм</span>">Metodologiya &amp; <span>AI Alqoritm</span></div>
+    <div class="divider reveal"></div>
+    <p class="section-sub reveal" data-az="Tədqiqat mərhələlərindən tutmuş AI kompensasiya alqoritminə qədər bütün sistem." data-en="The entire system, from research stages to the AI compensation algorithm." data-ru="Вся система — от этапов исследования до алгоритма компенсации ИИ.">Tədqiqat mərhələlərindən tutmuş AI kompensasiya alqoritminə qədər bütün sistem.</p>
+
+    <div class="ai-layout">
+      <div class="ai-steps">
+        <div class="ai-step reveal">
+          <div class="step-num">1</div>
+          <div>
+            <h4 data-az="Araşdırma" data-en="Research" data-ru="Исследование">Araşdırma</h4>
+            <p data-az="Qarabağın bərpa prosesində ekoloji tələblərin və bərpa olunan enerji potensialının (günəş, külək, bioqaz) analizi." data-en="Analysis of ecological requirements and renewable energy potential (solar, wind, biogas) in Karabakh's restoration process." data-ru="Анализ экологических требований и потенциала возобновляемой энергии (солнечной, ветровой, биогазовой) в процессе восстановления Карабаха.">Qarabağın bərpa prosesində ekoloji tələblərin və bərpa olunan enerji potensialının (günəş, külək, bioqaz) analizi.</p>
+          </div>
+        </div>
+        <div class="ai-step reveal">
+          <div class="step-num">2</div>
+          <div>
+            <h4 data-az="Hesablama" data-en="Calculation" data-ru="Вычисление">Hesablama</h4>
+            <p data-az="AI alqoritminin qurulması; enerji istehsalının istehlaka nisbətinin saniyəlik hesablanması və Iron-Air batareyaları ilə kompensasiya məntiqi." data-en="Building the AI algorithm; second-by-second calculation of the energy production-to-consumption ratio and compensation logic with Iron-Air batteries." data-ru="Построение алгоритма ИИ; посекундный расчёт соотношения производства к потреблению энергии и логика компенсации с батареями Iron-Air.">AI alqoritminin qurulması; enerji istehsalının istehlaka nisbətinin saniyəlik hesablanması və Iron-Air batareyaları ilə kompensasiya məntiqi.</p>
+          </div>
+        </div>
+        <div class="ai-step reveal">
+          <div class="step-num">3</div>
+          <div>
+            <h4 data-az="Tətbiq (Qarabağ Modeli)" data-en="Application (Karabakh Model)" data-ru="Применение (Модель Карабаха)">Tətbiq (Qarabağ Modeli)</h4>
+            <p data-az="Hazırlanmış ağıllı şəhər planının fiziki maket üzərində vizuallaşdırılması və real ssenarilərə uyğun sınağı." data-en="Visualisation of the developed smart city plan on a physical model and testing according to real scenarios." data-ru="Визуализация разработанного плана умного города на физическом макете и тестирование в соответствии с реальными сценариями.">Hazırlanmış ağıllı şəhər planının fiziki maket üzərində vizuallaşdırılması və real ssenarilərə uyğun sınağı.</p>
+          </div>
+        </div>
+        <div class="ai-step reveal">
+          <div class="step-num">4</div>
+          <div>
+            <h4 data-az="AI Kompensasiya" data-en="AI Compensation" data-ru="Компенсация ИИ">AI Kompensasiya</h4>
+            <p data-az="Buludlu havada günəş enerjisindəki düşüş millisaniyələr içində Smart Storage bloklarını aktivləşdirərək şəbəkə sabitliyini qoruyur." data-en="A drop in solar energy during cloudy weather activates Smart Storage blocks within milliseconds, maintaining grid stability." data-ru="Падение солнечной энергии в пасмурную погоду активирует блоки Smart Storage за миллисекунды, поддерживая стабильность сети.">Buludlu havada günəş enerjisindəki düşüş millisaniyələr içində Smart Storage bloklarını aktivləşdirərək şəbəkə sabitliyini qoruyur.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hypothesis-box reveal">
+        <h3 data-az="🧪 Hipoteza" data-en="🧪 Hypothesis" data-ru="🧪 Гипотеза">🧪 Hipoteza</h3>
+        <p data-az="Əgər çoxmənbəli enerji istehsalı AI əsaslı saxlama və paylanma sistemləri ilə birləşdirilərsə, karbon emissiyaları minimuma enər və region tam enerji müstəqilliyi qazanar." data-en="If multi-source energy production is combined with AI-based storage and distribution systems, carbon emissions will be minimised and the region will achieve full energy independence." data-ru="Если многоисточниковое производство энергии объединить с системами хранения и распределения на основе ИИ, выбросы углерода будут сведены к минимуму, а регион достигнет полной энергетической независимости.">
+          Əgər çoxmənbəli enerji istehsalı AI əsaslı saxlama və paylanma sistemləri ilə birləşdirilərsə, 
+          <strong style="color:var(--green-light)" data-az="karbon emissiyaları minimuma enər" data-en="carbon emissions will be minimised" data-ru="выбросы углерода будут сведены к минимуму">karbon emissiyaları minimuma enər</strong> və 
+          region <strong style="color:var(--teal)" data-az="tam enerji müstəqilliyi" data-en="full energy independence" data-ru="полную энергетическую независимость">tam enerji müstəqilliyi</strong> qazanar.
+        </p>
+        <p data-az="Hibrid Sistemlərin Səmərəliliyi: Günəş, külək və bioqaz mənbələrinin AI tərəfindən idarə olunan inteqrasiyası, tək mənbəli sistemlərlə müqayisədə enerji təhlükəsizliyini 40% artırır." data-en="Hybrid System Efficiency: AI-managed integration of solar, wind and biogas sources increases energy security by 40% compared to single-source systems." data-ru="Эффективность гибридных систем: управляемая ИИ интеграция солнечных, ветровых и биогазовых источников повышает энергетическую безопасность на 40% по сравнению с одноисточниковыми системами.">
+          Hibrid Sistemlərin Səmərəliliyi: Günəş, külək və bioqaz mənbələrinin AI tərəfindən idarə olunan inteqrasiyası, tək mənbəli sistemlərlə müqayisədə enerji təhlükəsizliyini <strong style="color:var(--yellow)">40% artırır.</strong>
+        </p>
+        <div style="margin-top:16px">
+          <span class="hypo-tag">Net Zero</span>
+          <span class="hypo-tag" data-az="Enerji Müstəqilliyi" data-en="Energy Independence" data-ru="Энергонезависимость">Enerji Müstəqilliyi</span>
+          <span class="hypo-tag" data-az="AI İdarəetmə" data-en="AI Management" data-ru="Управление ИИ">AI İdarəetmə</span>
+          <span class="hypo-tag">Smart Storage</span>
+          <span class="hypo-tag">Iron-Air Tech</span>
+          <span class="hypo-tag" data-az="Sıfır Emissiya" data-en="Zero Emission" data-ru="Нулевая эмиссия">Sıfır Emissiya</span>
+        </div>
+
+        <div style="margin-top:24px;padding:16px;background:rgba(29,201,138,0.08);border-radius:12px;border:1px solid rgba(29,201,138,0.2)">
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.7)" data-az="İnnovativ Fərq: Green Karabakh adi şəhərlərdən fərqli olaraq, xarici şəbəkədən asılı deyil; o, AI vasitəsilə öz daxili mənbələrini saniyəlik idarə edən Ağıllı Orqanizm kimidir." data-en="Green Karabakh, unlike ordinary cities, is not dependent on an external grid; it is like a Smart Organism that manages its own internal sources via AI." data-ru="Green Karabakh, в отличие от обычных городов, не зависит от внешней сети; это Умный Организм, управляющий своими внутренними источниками с помощью ИИ.">
+            <strong style="color:var(--green-light)">İnnovativ Fərq:</strong> "Green Karabakh" adi şəhərlərdən fərqli olaraq, xarici şəbəkədən asılı deyil; o, AI vasitəsilə öz daxili mənbələrini saniyəlik idarə edən <em>"Ağıllı Orqanizm"</em> kimidir.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NƏTİCƏ -->
+<section id="netice">
+  <div class="container">
+    <div class="section-title reveal" data-az="Strateji Nəticə" data-en="Strategic <span>Conclusion</span>" data-ru="Стратегический <span>Итог</span>">Strateji <span>Nəticə</span></div>
+    <div class="divider reveal"></div>
+    <div class="conclusion-box reveal">
+      <p data-az="Bizim layihəmiz Qarabağın bərpasına sadəcə binaların tikilməsi kimi baxmır. Biz gələcəyin yaşayış modelini təklif edirik. Qarabağdan başlayan bu enerji inqilabı Azərbaycanın dünya texnologiya xəritəsindəki yerini möhkəmləndirəcək və bütün region üçün stabil, yaşıl gələcəyin zəmanəti olacaq." data-en="Our project does not view the restoration of Karabakh merely as building construction. We offer a living model of the future. This energy revolution starting from Karabakh will strengthen Azerbaijan's position on the world technology map and will be the guarantee of a stable, green future for the entire region." data-ru="Наш проект рассматривает восстановление Карабаха не просто как строительство зданий. Мы предлагаем модель жизни будущего. Эта энергетическая революция, начавшаяся с Карабаха, укрепит позиции Азербайджана на мировой технологической карте и станет гарантией стабильного, зелёного будущего для всего региона.">
+        Bizim layihəmiz Qarabağın bərpasına sadəcə binaların tikilməsi kimi baxmır. 
+        Biz <strong>gələcəyin yaşayış modelini</strong> təklif edirik. 
+        Qarabağdan başlayan bu enerji inqilabı <strong>Azərbaycanın dünya texnologiya xəritəsindəki</strong> 
+        yerini möhkəmləndirəcək və bütün region üçün stabil, yaşıl gələcəyin zəmanəti olacaq.
+      </p>
+      <br>
+      <p data-az="Green Karabakh: Enerji İxracatçısı və Data Hub. Artıq qalan yaşıl enerji (Surplus) yüksək texnologiyalı Data Mərkəzləri üçün gəlir mənbəyidir. Enerji səmərəli şəhərlər Azərbaycanda AI və Data mərkəzləri kimi yüksək enerji tələb edən texnologiyaların inkişafı üçün yaşıl və ekoloji təmiz infrastruktur yaradır." data-en="Green Karabakh: Energy Exporter and Data Hub. Surplus green energy is a revenue source for high-tech Data Centres. Energy-efficient cities create green and eco-friendly infrastructure for the development of high-energy-demand technologies such as AI and Data centres in Azerbaijan." data-ru="Green Karabakh: Экспортёр энергии и Data Hub. Избыточная зелёная энергия (Surplus) является источником дохода для высокотехнологичных центров обработки данных. Энергоэффективные города создают экологически чистую инфраструктуру для развития высокоэнергоёмких технологий, таких как ИИ и центры обработки данных в Азербайджане.">
+        Green Karabakh: <strong>Enerji İxracatçısı və Data Hub.</strong> Artıq qalan yaşıl enerji (Surplus) 
+        yüksək texnologiyalı <strong>Data Mərkəzləri</strong> üçün gəlir mənbəyidir. 
+        Enerji səmərəli şəhərlər Azərbaycanda AI və Data mərkəzləri kimi yüksək enerji tələb edən 
+        texnologiyaların inkişafı üçün <strong>yaşıl və ekoloji təmiz infrastruktur</strong> yaradır.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Green Karabakh</strong> · <span data-az="Layihə · Azərbaycan · 2026" data-en="Project · Azerbaijan · 2026" data-ru="Проект · Азербайджан · 2026">Layihə · Azərbaycan · 2026</span></p>
+  <p style="margin-top:8px" data-az="Qarabağın yaşıl gələcəyi üçün — enerji inqilabı buradan başlayır 🌿" data-en="For the green future of Karabakh — the energy revolution starts here 🌿" data-ru="Ради зелёного будущего Карабаха — энергетическая революция начинается здесь 🌿">Qarabağın yaşıl gələcəyi üçün — enerji inqilabı buradan başlayır 🌿</p>
+  <p style="margin-top:12px">
+    <a href="https://www.instagram.com/green.karabakh?igsh=MXEwbzlmcmY5Y3IxaA%3D%3D&utm_source=qr" target="_blank" style="color:var(--green-light);text-decoration:none;font-weight:700;font-size:0.85rem;">📷 @green.karabakh</a>
+    &nbsp;·&nbsp;
+    <a href="https://green-karabakh.github.io/green_karabakh_dashboard/" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:700;font-size:0.85rem;">📊 Dashboard</a>
+  </p>
+</footer>
+
+<script>
+  // Language switcher
+  function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+    });
+    document.querySelectorAll('[data-az]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (text) el.innerHTML = text;
+    });
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+
+  // Stagger children in grids
+  document.querySelectorAll('.goals-grid, .tech-grid').forEach(grid => {
+    [...grid.children].forEach((c, i) => {
+      c.style.transitionDelay = (i * 0.1) + 's';
+    });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+  // Close menu when a link is clicked
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
